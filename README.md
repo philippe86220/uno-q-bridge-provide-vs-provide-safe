@@ -33,6 +33,8 @@ void setup() {
 
   Bridge.provide_safe("test", callbackTest);
   // Replace with Bridge.provide("test", callbackTest) to compare behavior
+
+delay(5000);
 }
 
 void loop() {
