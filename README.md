@@ -130,9 +130,19 @@ Example of possible output:
 
 ```
 [LOOP START]
-Fo>>> CALLBACK EXECUTED <<<
-rum
+Forum
+>>> CALLBACK EXECUTED <<<
+>>> CALLBACK EXECUTED <<<
 [LOOP END]
+[LOOP START]
+For>>> CALLBACK EXECUTED <<<
+um
+>>> CALLBACK EXECUTED <<<
+>>> CALLBACK EXECUTED <<<
+[LOOP END]
+[LOOP START]
+Fo>>> CALLBACK EXECUTED <<<
+rum>>> CALLBACK EXECUTED <<<
 ```
 
 ---
