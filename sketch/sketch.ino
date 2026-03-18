@@ -19,6 +19,8 @@ void setup() {
 
   Bridge.provide_safe("test", callbackTest);
   //Bridge.provide("test", callbackTest);
+
+  delay(5000);
 }
 
 void loop() {
