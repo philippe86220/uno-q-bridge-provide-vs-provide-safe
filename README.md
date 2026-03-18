@@ -163,10 +163,10 @@ rum>>> CALLBACK EXECUTED <<<
 
 ### Bridge.provide_safe()
 
-- callback runs in the main `loop()` context
-- execution is deferred
-- executed only after `loop()` completes
-- no interruption of user code
+- callback runs in the same execution context as `loop()`
+- execution is deferred and managed by the framework
+- not executed concurrently with user code
+- not triggered by scheduler preemption
 
 ---
 
@@ -177,13 +177,15 @@ rum>>> CALLBACK EXECUTED <<<
 It changes its execution model:
 
 - from **concurrent execution** (`provide`)
-- to **deferred execution in loop context** (`provide_safe`)
+- to **deferred execution in the loop context** (`provide_safe`)
 
-This guarantees that:
+This ensures that:
 
-- user code is never interrupted
-- no interleaving occurs
-- execution is safe without explicit synchronization
+- user code is not interrupted by concurrent execution
+- no interleaving occurs with a separate thread
+- execution is safe without explicit synchronization in this context
+
+In this experiment, the callback is observed to run after the complete execution of `loop()`, but this should be understood as a consequence of the execution model rather than a guaranteed insertion point.
 
 ---
 
