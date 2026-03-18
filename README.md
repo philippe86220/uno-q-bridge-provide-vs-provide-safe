@@ -80,6 +80,18 @@ This indicates that:
 - the callback is NOT executed during `delay()`
 - the callback is executed after the user code in `loop()` has completed
 
+So the execution model is:
+
+```
+loop() execution
+   ↓
+loop() ends
+   ↓
+safe callback is executed
+   ↓
+next loop iteration
+```
+
 ---
 
 ## Interpretation
@@ -95,18 +107,6 @@ Instead:
 In this experiment, this results in the callback being executed after the complete execution of `loop()`, rather than during user code execution.
 
 This behavior is observed consistently, but should be understood as a consequence of the framework’s execution model, not as a guarantee of a specific instruction-level insertion point.
-
-So the execution model is:
-
-```
-loop() execution
-   ↓
-loop() ends
-   ↓
-safe callback is executed
-   ↓
-next loop iteration
-```
 
 ---
 
