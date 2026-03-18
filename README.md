@@ -7,13 +7,40 @@ This example demonstrates how `Bridge.provide_safe()` changes the execution mode
 Unlike `Bridge.provide()`, the callback is not executed in a separate background thread.  
 It runs in the same execution context as `loop()`, but its execution is deferred.
 
-The goal is to show that:
+The goal is to observe when the callback is actually executed.
+
+---
+
+## Observed behavior
+
+In this experiment, the output consistently shows:
+
+```
+[LOOP START]
+Forum
+[LOOP END]
+>>> CALLBACK EXECUTED <<<
+```
+
+This indicates that:
 
 - the callback is NOT executed during user code execution (e.g. inside `printSlow()`)
 - the callback is NOT executed during `delay()`
-- the callback is executed only **after the complete execution of `loop()`**
+- the callback is executed after the user code in `loop()` has completed
 
-This behavior can be observed experimentally using simple timing markers.
+---
+
+`Bridge.provide_safe()` does not rely on concurrent execution.
+
+Instead:
+
+- the callback is executed in the same execution context as `loop()`
+- its execution is deferred and handled by the framework
+- it is not triggered by scheduler preemption
+
+In this experiment, this results in the callback being executed after the complete execution of `loop()`, rather than during user code execution.
+
+This behavior is observed consistently, but should be understood as a consequence of the framework’s execution model, not as a guarantee of a specific instruction-level insertion point.
 
 ---
 
